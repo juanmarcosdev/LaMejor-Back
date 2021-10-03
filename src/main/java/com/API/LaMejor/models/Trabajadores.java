@@ -1,6 +1,7 @@
 package com.API.LaMejor.models;
 
 import lombok.*;
+import org.hibernate.annotations.ColumnDefault;
 
 import javax.persistence.*;
 import java.util.Date;
@@ -14,7 +15,8 @@ import java.util.Date;
 @Cacheable(false)
 public class Trabajadores {
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "trabajadores_secuencia")
+    @GeneratedValue(strategy=GenerationType.SEQUENCE,generator = "trabajadores_generador")
+    @SequenceGenerator(name = "trabajador_generador", sequenceName = "trabajadores_secuencia", initialValue = 1,allocationSize = 1)
     @Column(name = "trabajador_id", nullable = false, updatable = false)
     private Long trabajadorId;
     @Column(nullable = false,updatable = false)
@@ -29,6 +31,8 @@ public class Trabajadores {
     private String trabajadorDocumento;
     @Column(nullable = false,updatable = true)
     private String trabajadorContrasena;
-    @Column(nullable = false,updatable = true)
+    @Column(nullable = true,updatable = false,columnDefinition = "integer default 1")
     private int trabajadorEstado;
+
+
 }
