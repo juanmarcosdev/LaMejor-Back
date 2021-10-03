@@ -1,6 +1,7 @@
 package com.API.LaMejor.models;
 
 import lombok.*;
+import org.hibernate.annotations.ColumnDefault;
 
 import javax.persistence.*;
 import java.util.Date;
@@ -24,7 +25,7 @@ public class Categorias {
     private String categoriaDescripcion;
     @Column(nullable = true,updatable = false)
     private Date categoriaFechaCreacion;
-    @Column(nullable = false,updatable = true)
+    @Column(nullable = true,updatable = false,columnDefinition = "integer default 1")
     private int categoriaEstado;
 
 

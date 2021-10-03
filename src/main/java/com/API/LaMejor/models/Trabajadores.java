@@ -1,6 +1,7 @@
 package com.API.LaMejor.models;
 
 import lombok.*;
+import org.hibernate.annotations.ColumnDefault;
 
 import javax.persistence.*;
 import java.util.Date;
@@ -30,6 +31,8 @@ public class Trabajadores {
     private String trabajadorDocumento;
     @Column(nullable = false,updatable = true)
     private String trabajadorContrasena;
-    @Column(nullable = true,updatable = true)
+    @Column(nullable = true,updatable = false,columnDefinition = "integer default 1")
     private int trabajadorEstado;
+
+
 }

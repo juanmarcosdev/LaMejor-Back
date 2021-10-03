@@ -1,6 +1,8 @@
 package com.API.LaMejor.models;
 
 import lombok.*;
+import org.hibernate.annotations.ColumnDefault;
+
 import javax.persistence.*;
 import java.util.Date;
 
@@ -28,6 +30,14 @@ public class Productos {
     private double productoPrecio;
     @Column(nullable = false,updatable = true)
     private int productoExistencias;
-    @Column(nullable = true,updatable = true,insertable = false)
+    @Column(nullable = true,updatable = false,columnDefinition = "integer default 1")
     private int productoEstado;
+
+    @PrePersist
+    public void asignarEstadoYFecha() {
+        this.productoFechaCreacion = new Date();
+        this.productoEstado = 1;
+
+    }
 }
+
