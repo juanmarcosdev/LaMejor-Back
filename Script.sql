@@ -28,7 +28,7 @@ CREATE SEQUENCE trabajadores_secuencia;
     categoria_id bigint NOT NULL,
     categoria_descripcion character varying(255)  NOT NULL,
     categoria_estado integer NOT NULL DEFAULT 1,
-    categoria_fecha_creacion timestamp without time zone ,
+    categoria_fecha_creacion DATE ,
     categoria_nombre character varying(255) NOT NULL,
     CONSTRAINT categorias_pkey PRIMARY KEY (categoria_id)
 );
@@ -38,7 +38,7 @@ CREATE SEQUENCE trabajadores_secuencia;
     producto_descripcion character varying(255) NOT NULL,
     producto_estado integer NOT NULL DEFAULT 1,
     producto_existencias integer NOT NULL,
-    producto_fecha_creacion timestamp without time zone,
+    producto_fecha_creacion DATE,
     producto_nombre character varying(255) NOT NULL,
     producto_precio double precision NOT NULL,
     CONSTRAINT productos_pkey PRIMARY KEY (producto_id)
@@ -59,7 +59,7 @@ CREATE SEQUENCE trabajadores_secuencia;
 (
     venta_id bigint NOT NULL,
     venta_estado integer NOT NULL DEFAULT 1,
-    venta_fecha timestamp without time zone ,
+    venta_fecha DATE ,
     venta_total double precision,
     CONSTRAINT ventas_pkey PRIMARY KEY (venta_id)
 );
@@ -86,7 +86,7 @@ CREATE OR REPLACE FUNCTION F_insertar_venta() RETURNS TRIGGER AS $$
  DECLARE
  BEGIN
     NEW.venta_id := NEXTVAL('ventas_secuencia');
-    NEW.venta_fecha := SELECT CURRENT_DATE;
+    NEW.venta_fecha := CURRENT_DATE;
     RETURN NEW;
 END
 $$ LANGUAGE plpgsql;
@@ -95,7 +95,7 @@ CREATE OR REPLACE FUNCTION F_insertar_categoria() RETURNS TRIGGER AS $$
  DECLARE
  BEGIN
     NEW.categoria_id := NEXTVAL('categorias_secuencia');
-    NEW.categoria_fecha_creacion := SELECT CURRENT_DATE;
+    NEW.categoria_fecha_creacion := CURRENT_DATE;
     RETURN NEW;
 END
 $$ LANGUAGE plpgsql;
@@ -104,7 +104,7 @@ CREATE OR REPLACE FUNCTION F_insertar_producto() RETURNS TRIGGER AS $$
  DECLARE
  BEGIN
     NEW.producto_id := NEXTVAL('productos_secuencia');
-    NEW.producto_fecha_creacion := SELECT CURRENT_DATE;
+    NEW.producto_fecha_creacion := CURRENT_DATE;
     RETURN NEW;
 END
 $$ LANGUAGE plpgsql;
@@ -141,6 +141,16 @@ VALUES('Cristian', 'Pascumal', 'cristianpascumal@gmail.com', '3166891624','11136
 INSERT INTO trabajadores (trabajador_nombre,trabajador_apellido,trabajador_correo,trabajador_celular,trabajador_documento,trabajador_contrasena)
 VALUES('Maria', 'Dorado', 'mariadorado1110@gmail.com', '3178145209','59650873','lamejor');
 
-INSERT INTO categoriras (categoria_nombre,categoria_descripcion) VALUES ('Aseo','Productos de aseo');
+INSERT INTO categorias (categoria_nombre,categoria_descripcion) VALUES ('Aseo','Productos de aseo');
+
+INSERT INTO productos (producto_nombre, producto_descripcion, producto_precio, producto_existencias)
+VALUES('Rindex Libra','Detergente en polvo',4000, 20);
+
+INSERT INTO productos (producto_nombre, producto_descripcion, producto_precio, producto_existencias)
+VALUES('Rindex Media','Detergente en polvo',2000, 20);
+
+INSERT INTO productos (producto_nombre, producto_descripcion, producto_precio, producto_existencias)
+VALUES('Rindex Cuarto','Detergente en polvo',1000, 20);
+
 
 
